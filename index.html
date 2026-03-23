@@ -1,840 +1,511 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Proteus Intel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet"><style>*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proteus Intel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-    --gold: #C9A84C;
-    --gold-dim: #8A6E30;
-    --gold-faint: #2A210F;
-    --ink: #080808;
-    --surface: #0E0E0E;
-    --surface-2: #141414;
-    --surface-3: #1C1C1C;
-    --border: rgba(201, 168, 76, 0.15);
-    --border-bright: rgba(201, 168, 76, 0.35);
-    --text-primary: #E8E3D8;
-    --text-secondary: #8A8070;
-    --text-muted: #4A4540;
-    --mono: 'DM Mono', monospace;
-    --serif: 'Cormorant Garamond', serif;
-    --cond: 'Barlow Condensed', sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: var(--ink);
-    color: var(--text-primary);
-    font-family: var(--cond);
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 3rem;
-    border-bottom: 0.5px solid var(--border);
-    background: rgba(8, 8, 8, 0.92);
-    backdrop-filter: blur(12px);
-}
-
-.nav-logo {
-    font-family: var(--mono);
-    font-weight: 300;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-}
-
-.nav-links a {
-    font-family: var(--cond);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.nav-links a:hover {
-    color: var(--gold);
-}
-
-.nav-cta {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    border: 0.5px solid var(--border-bright);
-    padding: 0.5rem 1.25rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: background 0.2s, color 0.2s;
-}
-
-.nav-cta:hover {
-    background: var(--gold);
-    color: var(--ink);
-}
-
-.hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 3rem 5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201, 168, 76, 0.04) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 20% 60%, rgba(201, 168, 76, 0.025) 0%, transparent 60%);
-}
-
-.hero-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(to right, rgba(201, 168, 76, 0.04) 0.5px, transparent 0.5px),
-        linear-gradient(to bottom, rgba(201, 168, 76, 0.04) 0.5px, transparent 0.5px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-}
-
-.hero-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.hero-label::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 0.5px;
-    background: var(--gold-dim);
-}
-
-.hero-headline {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: clamp(3.5rem, 7vw, 7rem);
-    line-height: 1.0;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    max-width: 900px;
-    margin-bottom: 1rem;
-}
-
-.hero-headline em {
-    font-style: italic;
-    color: var(--gold);
-}
-
-.hero-sub {
-    font-family: var(--cond);
-    font-size: 15px;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    color: var(--text-secondary);
-    max-width: 520px;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-    text-transform: uppercase;
-}
-
-.hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-}
-
-.btn-primary {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    background: var(--gold);
-    color: var(--ink);
-    padding: 0.85rem 2.5rem;
-    text-decoration: none;
-    font-weight: 400;
-    transition: opacity 0.2s;
-}
-
-.btn-primary:hover {
-    opacity: 0.85;
-}
-
-.btn-ghost {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.2s;
-}
-
-.btn-ghost:hover {
-    color: var(--text-primary);
-}
-
-.hero-scroll {
-    position: absolute;
-    bottom: 2rem;
-    right: 3rem;
-    writing-mode: vertical-rl;
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.hero-scroll::after {
-    content: '';
-    display: block;
-    width: 0.5px;
-    height: 60px;
-    background: var(--text-muted);
-    animation: scrollLine 2s ease-in-out infinite;
-}
-
-@keyframes scrollLine {
-
-    0%,
-    100% {
-        transform: scaleY(1);
-        opacity: 0.4;
+    :root {
+      --gold: #C9A84C;
+      --gold-dim: #8A6E30;
+      --gold-faint: #2A210F;
+      --ink: #080808;
+      --surface: #0E0E0E;
+      --surface-2: #141414;
+      --surface-3: #1C1C1C;
+      --border: rgba(201, 168, 76, 0.15);
+      --border-bright: rgba(201, 168, 76, 0.35);
+      --text-primary: #E8E3D8;
+      --text-secondary: #8A8070;
+      --text-muted: #4A4540;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Cormorant Garamond', serif;
+      --cond: 'Barlow Condensed', sans-serif;
     }
 
-    50% {
-        transform: scaleY(0.4);
-        opacity: 0.8;
-    }
-}
+    html { scroll-behavior: smooth; }
 
-.thesis-strip {
-    border-top: 0.5px solid var(--border);
-    border-bottom: 0.5px solid var(--border);
-    padding: 1.5rem 3rem;
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    background: var(--surface);
-    overflow: hidden;
-}
-
-.thesis-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.thesis-marquee {
-    flex: 1;
-    overflow: hidden;
-}
-
-.thesis-marquee-inner {
-    display: flex;
-    gap: 4rem;
-    white-space: nowrap;
-    animation: marquee 30s linear infinite;
-}
-
-.thesis-marquee-inner span {
-    font-family: var(--cond);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-.thesis-marquee-inner span.highlight {
-    color: var(--gold-dim);
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
+    body {
+      background: var(--ink);
+      color: var(--text-primary);
+      font-family: var(--cond);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-section {
-    padding: 6rem 3rem;
-    position: relative;
-}
-
-.section-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.35em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.section-label::after {
-    content: '';
-    display: block;
-    height: 0.5px;
-    width: 60px;
-    background: var(--border-bright);
-}
-
-.problem {
-    background: var(--surface);
-    border-top: 0.5px solid var(--border);
-    border-bottom: 0.5px solid var(--border);
-}
-
-.problem-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-}
-
-.problem-quote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-    font-weight: 300;
-    line-height: 1.35;
-    color: var(--text-primary);
-    border-left: 1.5px solid var(--gold);
-    padding-left: 2rem;
-}
-
-.problem-body p {
-    font-size: 15px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-}
-
-.problem-body p strong {
-    color: var(--text-primary);
-    font-weight: 400;
-}
-
-.pillars {
-    background: var(--ink);
-}
-
-.pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    border: 0.5px solid var(--border);
-    background: var(--border);
-    margin-top: 1rem;
-}
-
-.pillar {
-    background: var(--ink);
-    padding: 3rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.pillar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1.5px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-.pillar:hover::before {
-    transform: scaleX(1);
-}
-
-.pillar-number {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-    display: block;
-}
-
-.pillar-title {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-    line-height: 1.1;
-}
-
-.pillar-subtitle {
-    font-family: var(--cond);
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-
-.pillar-body {
-    font-size: 13px;
-    font-weight: 300;
-    letter-spacing: 0.04em;
-    color: var(--text-secondary);
-    line-height: 1.75;
-    text-transform: uppercase;
-}
-
-.verticals {
-    background: var(--surface);
-    border-top: 0.5px solid var(--border);
-}
-
-.verticals-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 4rem;
-}
-
-.verticals-headline {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    line-height: 1.15;
-    color: var(--text-primary);
-    max-width: 420px;
-}
-
-.verticals-headline em {
-    font-style: italic;
-    color: var(--gold);
-}
-
-.verticals-list {
-    display: flex;
-    flex-direction: column;
-    border-top: 0.5px solid var(--border);
-}
-
-.vertical-item {
-    display: grid;
-    grid-template-columns: 60px 1fr 1fr auto;
-    align-items: center;
-    gap: 3rem;
-    padding: 2rem 0;
-    border-bottom: 0.5px solid var(--border);
-    transition: background 0.2s;
-}
-
-.vertical-item:hover {
-    background: rgba(201, 168, 76, 0.02);
-}
-
-.vertical-item:hover .v-num {
-    color: var(--gold);
-}
-
-.v-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-    transition: color 0.2s;
-}
-
-.v-name {
-    font-family: var(--cond);
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-}
-
-.v-desc {
-    font-size: 12px;
-    font-weight: 300;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.v-tag {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    border: 0.5px solid var(--border);
-    padding: 0.3rem 0.75rem;
-    white-space: nowrap;
-}
-
-.clients {
-    background: var(--ink);
-    border-top: 0.5px solid var(--border);
-}
-
-.clients-intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    margin-bottom: 5rem;
-}
-
-.clients-headline {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.15;
-}
-
-.clients-headline em {
-    font-style: italic;
-    color: var(--gold);
-}
-
-.clients-body {
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    line-height: 1.85;
-    padding-top: 0.5rem;
-}
-
-.clients-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 0.5px solid var(--border);
-}
-
-.client-card {
-    background: var(--ink);
-    padding: 2.5rem;
-}
-
-.client-card-icon {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-bottom: 1.25rem;
-    display: block;
-}
-
-.client-card-title {
-    font-family: var(--cond);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-}
-
-.client-card-body {
-    font-size: 12px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    line-height: 1.8;
-}
-
-.standard {
-    background: var(--surface);
-    border-top: 0.5px solid var(--border);
-    text-align: center;
-}
-
-.standard-inner {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.standard-headline {
-    font-family: var(--serif);
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.1;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-}
-
-.standard-headline em {
-    color: var(--gold);
-    font-style: normal;
-}
-
-.standard-body {
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    line-height: 1.9;
-    margin-bottom: 3rem;
-}
-
-.standard-rule {
-    width: 60px;
-    height: 0.5px;
-    background: var(--gold);
-    margin: 0 auto 3rem;
-}
-
-.standard-cta {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    background: var(--gold);
-    color: var(--ink);
-    padding: 1rem 3rem;
-    text-decoration: none;
-    transition: opacity 0.2s;
-}
-
-.standard-cta:hover {
-    opacity: 0.85;
-}
-
-footer {
-    border-top: 0.5px solid var(--border);
-    padding: 2.5rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--ink);
-}
-
-.footer-logo {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-}
-
-.footer-copy {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-}
-
-.footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-}
-
-.footer-links a {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-links a:hover {
-    color: var(--gold-dim);
-}
-
-.fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 900px) {
     nav {
-        padding: 1rem 1.5rem;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      border-bottom: 0.5px solid var(--border);
+      background: rgba(8, 8, 8, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 300; font-size: 11px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--cond); font-size: 12px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--gold); border: 0.5px solid var(--border-bright); padding: 0.5rem 1.25rem; text-decoration: none; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--ink); }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,0.04) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 20% 60%, rgba(201,168,76,0.025) 0%, transparent 60%); }
+    .hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(201,168,76,0.04) 0.5px, transparent 0.5px), linear-gradient(to bottom, rgba(201,168,76,0.04) 0.5px, transparent 0.5px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+    .hero-label::before { content: ''; display: block; width: 40px; height: 0.5px; background: var(--gold-dim); }
+    .hero-headline { font-family: var(--serif); font-weight: 300; font-size: clamp(3.5rem, 7vw, 7rem); line-height: 1.0; letter-spacing: -0.01em; color: var(--text-primary); max-width: 900px; margin-bottom: 1rem; }
+    .hero-headline em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-family: var(--cond); font-size: 15px; font-weight: 300; letter-spacing: 0.12em; color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-bottom: 3rem; text-transform: uppercase; }
+    .hero-actions { display: flex; align-items: center; gap: 2.5rem; }
+    .btn-primary { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gold); color: var(--ink); padding: 0.85rem 2.5rem; text-decoration: none; font-weight: 400; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+    .btn-ghost:hover { color: var(--text-primary); }
+    .hero-scroll { position: absolute; bottom: 2rem; right: 3rem; writing-mode: vertical-rl; font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; color: var(--text-muted); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; }
+    .hero-scroll::after { content: ''; display: block; width: 0.5px; height: 60px; background: var(--text-muted); animation: scrollLine 2s ease-in-out infinite; }
+    @keyframes scrollLine { 0%, 100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.4); opacity: 0.8; } }
+
+    .thesis-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 1.5rem 3rem; display: flex; align-items: center; gap: 3rem; background: var(--surface); overflow: hidden; }
+    .thesis-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+    .thesis-marquee { flex: 1; overflow: hidden; }
+    .thesis-marquee-inner { display: flex; gap: 4rem; white-space: nowrap; animation: marquee 30s linear infinite; }
+    .thesis-marquee-inner span { font-family: var(--cond); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+    .thesis-marquee-inner span.highlight { color: var(--gold-dim); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    section { padding: 6rem 3rem; position: relative; }
+    .section-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.35em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; height: 0.5px; width: 60px; background: var(--border-bright); }
+
+    .problem { background: var(--surface); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .problem-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .problem-quote { font-family: var(--serif); font-style: italic; font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 300; line-height: 1.35; color: var(--text-primary); border-left: 1.5px solid var(--gold); padding-left: 2rem; }
+    .problem-body p { font-size: 15px; font-weight: 300; letter-spacing: 0.05em; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .problem-body p strong { color: var(--text-primary); font-weight: 400; }
+
+    .pillars { background: var(--ink); }
+    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 0.5px solid var(--border); background: var(--border); margin-top: 1rem; }
+    .pillar { background: var(--ink); padding: 3rem 2.5rem; position: relative; overflow: hidden; }
+    .pillar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .pillar:hover::before { transform: scaleX(1); }
+    .pillar-number { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; color: var(--text-muted); margin-bottom: 1.5rem; display: block; }
+    .pillar-title { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); margin-bottom: 0.5rem; line-height: 1.1; }
+    .pillar-subtitle { font-family: var(--cond); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .pillar-body { font-size: 13px; font-weight: 300; letter-spacing: 0.04em; color: var(--text-secondary); line-height: 1.75; text-transform: uppercase; }
+
+    .verticals { background: var(--surface); border-top: 0.5px solid var(--border); }
+    .verticals-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+    .verticals-headline { font-family: var(--serif); font-weight: 300; font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.15; color: var(--text-primary); max-width: 420px; }
+    .verticals-headline em { font-style: italic; color: var(--gold); }
+    .verticals-list { display: flex; flex-direction: column; border-top: 0.5px solid var(--border); }
+    .vertical-item { display: grid; grid-template-columns: 60px 1fr 1fr auto; align-items: center; gap: 3rem; padding: 2rem 0; border-bottom: 0.5px solid var(--border); transition: background 0.2s; }
+    .vertical-item:hover { background: rgba(201,168,76,0.02); }
+    .vertical-item:hover .v-num { color: var(--gold); }
+    .v-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--text-muted); transition: color 0.2s; }
+    .v-name { font-family: var(--cond); font-size: 18px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); }
+    .v-desc { font-size: 12px; font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); line-height: 1.6; }
+    .v-tag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); border: 0.5px solid var(--border); padding: 0.3rem 0.75rem; white-space: nowrap; }
+
+    .clients { background: var(--ink); border-top: 0.5px solid var(--border); }
+    .clients-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-bottom: 5rem; }
+    .clients-headline { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; }
+    .clients-headline em { font-style: italic; color: var(--gold); }
+    .clients-body { font-size: 14px; font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); line-height: 1.85; padding-top: 0.5rem; }
+    .clients-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); }
+    .client-card { background: var(--ink); padding: 2.5rem; }
+    .client-card-icon { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 1.25rem; display: block; }
+    .client-card-title { font-family: var(--cond); font-size: 15px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 0.75rem; }
+    .client-card-body { font-size: 12px; font-weight: 300; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); line-height: 1.8; }
+
+    .standard { background: var(--surface); border-top: 0.5px solid var(--border); text-align: center; }
+    .standard-inner { max-width: 700px; margin: 0 auto; }
+    .standard-headline { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; font-style: italic; line-height: 1.1; color: var(--text-primary); margin-bottom: 2rem; }
+    .standard-headline em { color: var(--gold); font-style: normal; }
+    .standard-body { font-size: 14px; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); line-height: 1.9; margin-bottom: 3rem; }
+    .standard-rule { width: 60px; height: 0.5px; background: var(--gold); margin: 0 auto 3rem; }
+    .standard-cta { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gold); color: var(--ink); padding: 1rem 3rem; text-decoration: none; transition: opacity 0.2s; }
+    .standard-cta:hover { opacity: 0.85; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: var(--ink); }
+    .footer-logo { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; color: var(--gold-dim); text-transform: uppercase; }
+    .footer-copy { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-dim); }
+
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 0 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      .problem-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .vertical-item { grid-template-columns: 40px 1fr; }
+      .v-desc, .v-tag { display: none; }
+      .clients-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .clients-grid { grid-template-columns: 1fr; }
+      .thesis-strip { padding: 1rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { display: none; }
     }
 
-    .nav-links {
-        display: none;
+    /* ── INLINE EDITOR ── */
+    .admin-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      justify-content: center; align-items: center;
     }
-
-    .hero {
-        padding: 0 1.5rem 4rem;
+    .admin-overlay.active { display: flex; }
+    .admin-modal {
+      background: var(--surface-2); border: 0.5px solid var(--border-bright);
+      padding: 3rem; max-width: 360px; width: 90%;
     }
-
-    section {
-        padding: 4rem 1.5rem;
+    .admin-modal h3 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .admin-modal input {
+      width: 100%; background: var(--ink); border: 0.5px solid var(--border);
+      color: var(--text-primary); font-family: var(--mono); font-size: 12px;
+      padding: 0.75rem 1rem; outline: none; margin-bottom: 1rem;
     }
-
-    .problem-layout {
-        grid-template-columns: 1fr;
-        gap: 3rem;
+    .admin-modal input:focus { border-color: var(--gold-dim); }
+    .admin-modal .error-msg { font-family: var(--mono); font-size: 10px; color: #c44; margin-bottom: 0.75rem; display: none; }
+    .admin-modal button {
+      width: 100%; background: var(--gold); color: var(--ink); border: none;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; padding: 0.75rem; cursor: pointer; transition: opacity 0.2s;
     }
+    .admin-modal button:hover { opacity: 0.85; }
 
-    .pillars-grid {
-        grid-template-columns: 1fr;
+    .edit-toolbar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998;
+      background: var(--surface-2); border-top: 1px solid var(--gold-dim);
+      padding: 0.75rem 2rem; justify-content: space-between; align-items: center;
     }
+    .edit-toolbar.active { display: flex; }
+    .edit-toolbar-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+    .edit-toolbar-actions { display: flex; gap: 1rem; }
+    .edit-toolbar button { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.5rem; cursor: pointer; border: none; transition: opacity 0.2s; }
+    .edit-toolbar button:hover { opacity: 0.85; }
+    .edit-btn-save { background: var(--gold); color: var(--ink); }
+    .edit-btn-cancel { background: transparent; color: var(--text-secondary); border: 0.5px solid var(--border) !important; }
+    .edit-toolbar .save-status { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
 
-    .vertical-item {
-        grid-template-columns: 40px 1fr;
-    }
+    body.edit-mode [data-editable] { outline: 1px dashed transparent; transition: outline-color 0.2s; cursor: text; }
+    body.edit-mode [data-editable]:hover { outline-color: var(--gold-dim); }
+    body.edit-mode [data-editable]:focus { outline-color: var(--gold); outline-style: solid; }
+  </style>
+</head>
+<body>
 
-    .v-desc,
-    .v-tag {
-        display: none;
-    }
+  <nav>
+    <div class="nav-logo" data-editable="nav-logo">Proteus Intel</div>
+    <ul class="nav-links">
+      <li><a href="#verticals">Verticals</a></li>
+      <li><a href="#clients">Who We Serve</a></li>
+      <li><a href="#standard">The Standard</a></li>
+    </ul>
+    <a href="#standard" class="nav-cta">Request Access</a>
+  </nav>
 
-    .clients-intro {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-label" data-editable="hero-label">Sovereign Infrastructure &amp; Defense Enablement</div>
+    <h1 class="hero-headline fade-in" data-editable="hero-headline">Trusted access<br>at the <em>intersection</em><br>of sovereign worlds.</h1>
+    <p class="hero-sub fade-in" style="transition-delay:0.15s" data-editable="hero-sub">Capital. Capability. Allied-nation defense demand.<br>We are the connective architecture between all three.</p>
+    <div class="hero-actions fade-in" style="transition-delay:0.3s">
+      <a href="#standard" class="btn-primary">Request Access</a>
+      <a href="#verticals" class="btn-ghost">Explore Our Platform &rarr;</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
 
-    .clients-grid {
-        grid-template-columns: 1fr;
-    }
+  <div class="thesis-strip">
+    <span class="thesis-label">Operating Thesis</span>
+    <div class="thesis-marquee">
+      <div class="thesis-marquee-inner">
+        <span class="highlight">Sovereign Capital Architecture</span><span>&#9670;</span>
+        <span>Defense Technology Acceleration</span><span>&#9670;</span>
+        <span class="highlight">Blockchain Sovereign Infrastructure</span><span>&#9670;</span>
+        <span>Energy Sovereignty</span><span>&#9670;</span>
+        <span class="highlight">IP Commercialization &amp; Allied-Nation Licensing</span><span>&#9670;</span>
+        <span>GCC &amp; European Sovereign Capital</span><span>&#9670;</span>
+        <span class="highlight">DOD Procurement Navigation</span><span>&#9670;</span>
+        <span>Autonomous Systems</span><span>&#9670;</span>
+        <span class="highlight">Sovereign Capital Architecture</span><span>&#9670;</span>
+        <span>Defense Technology Acceleration</span><span>&#9670;</span>
+        <span class="highlight">Blockchain Sovereign Infrastructure</span><span>&#9670;</span>
+        <span>Energy Sovereignty</span><span>&#9670;</span>
+        <span class="highlight">IP Commercialization &amp; Allied-Nation Licensing</span><span>&#9670;</span>
+        <span>GCC &amp; European Sovereign Capital</span><span>&#9670;</span>
+      </div>
+    </div>
+  </div>
 
-    .thesis-strip {
-        padding: 1rem 1.5rem;
-    }
+  <section class="problem fade-in">
+    <div class="section-label" data-editable="problem-label">The Structural Gap</div>
+    <div class="problem-layout">
+      <blockquote class="problem-quote" data-editable="problem-quote">"The technologies determining the next generation of national security are almost entirely emerging from the private sector — and no existing institution is equipped to connect them to sovereign capital and defense demand."</blockquote>
+      <div class="problem-body">
+        <p data-editable="problem-p1"><strong>Traditional defense contractors</strong> are too slow and too publicly visible to operate at the intersection of sovereign capital and emerging technology.</p>
+        <p data-editable="problem-p2"><strong>Generalist venture capital</strong> lacks the clearance relationships, geopolitical fluency, and procurement understanding to be useful in this space.</p>
+        <p data-editable="problem-p3"><strong>Investment banks</strong> lack the technical depth and founder-level relationships with the companies building actual capabilities.</p>
+        <p data-editable="problem-p4">Proteus Intel was built to <strong>occupy and close this gap.</strong></p>
+      </div>
+    </div>
+  </section>
 
-    footer {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
+  <section class="pillars">
+    <div class="section-label" data-editable="pillars-label">What We Are</div>
+    <div class="pillars-grid">
+      <div class="pillar fade-in">
+        <span class="pillar-number" data-editable="pillar1-num">01 / Capital</span>
+        <div class="pillar-title" data-editable="pillar1-title">Sovereign &amp;<br>Institutional</div>
+        <div class="pillar-subtitle" data-editable="pillar1-sub">Family Offices · SWFs · GCC Ministries</div>
+        <p class="pillar-body" data-editable="pillar1-body">Curated access to defense-adjacent deal flow with the geopolitical intelligence to understand what you are actually investing in — without direct exposure to U.S. government contracting channels.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.1s">
+        <span class="pillar-number" data-editable="pillar2-num">02 / Capability</span>
+        <div class="pillar-title" data-editable="pillar2-title">Defense-Adjacent<br>Technology</div>
+        <div class="pillar-subtitle" data-editable="pillar2-sub">Founders · Operators · Emerging Tech</div>
+        <p class="pillar-body" data-editable="pillar2-body">Early-stage and growth-stage companies building autonomous systems, sovereign data infrastructure, quantum-resilient cybersecurity, and advanced materials — connected to the channels that generalist venture cannot reach.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.2s">
+        <span class="pillar-number" data-editable="pillar3-num">03 / Defense</span>
+        <div class="pillar-title" data-editable="pillar3-title">Allied-Nation<br>Demand</div>
+        <div class="pillar-subtitle" data-editable="pillar3-sub">Governments · Ministries · Sovereign Structures</div>
+        <p class="pillar-body" data-editable="pillar3-body">A trusted, sovereign-aligned intermediary capable of navigating allied-nation defense relationships — not itself a government contractor, and structured for the sovereignty and confidentiality requirements of all parties.</p>
+      </div>
+    </div>
+  </section>
 
-    .footer-links {
-        display: none;
-    }
-}
+  <section class="verticals" id="verticals">
+    <div class="verticals-header">
+      <h2 class="verticals-headline fade-in" data-editable="verticals-headline">Five verticals.<br><em>One platform.</em><br>No equivalent.</h2>
+    </div>
+    <div class="verticals-list">
+      <div class="vertical-item fade-in">
+        <span class="v-num">I</span>
+        <span class="v-name" data-editable="v1-name">Sovereign Capital Architecture</span>
+        <span class="v-desc" data-editable="v1-desc">Retainer-based advisory for SWFs, family offices &amp; GCC ministry-level investment vehicles seeking vetted defense-tech deal flow</span>
+        <span class="v-tag" data-editable="v1-tag">Capital</span>
+      </div>
+      <div class="vertical-item fade-in" style="transition-delay:0.05s">
+        <span class="v-num">II</span>
+        <span class="v-name" data-editable="v2-name">Defense Tech Acceleration &amp; IP</span>
+        <span class="v-desc" data-editable="v2-desc">Early identification, IP structuring, DOD procurement navigation &amp; allied-nation licensing for defense-adjacent founders</span>
+        <span class="v-tag" data-editable="v2-tag">Capability</span>
+      </div>
+      <div class="vertical-item fade-in" style="transition-delay:0.1s">
+        <span class="v-num">III</span>
+        <span class="v-name" data-editable="v3-name">Sovereign Data &amp; Web3 Infrastructure</span>
+        <span class="v-desc" data-editable="v3-desc">Dual-ledger blockchain architecture for sovereign transactions, RWA tokenization of defense assets &amp; off-grid mesh networks</span>
+        <span class="v-tag" data-editable="v3-tag">Infrastructure</span>
+      </div>
+      <div class="vertical-item fade-in" style="transition-delay:0.15s">
+        <span class="v-num">IV</span>
+        <span class="v-name" data-editable="v4-name">Energy Sovereignty</span>
+        <span class="v-desc" data-editable="v4-desc">Containerized nuclear deployment, resilient microgrid infrastructure &amp; allied-nation energy independence programs</span>
+        <span class="v-tag" data-editable="v4-tag">Defense</span>
+      </div>
+      <div class="vertical-item fade-in" style="transition-delay:0.2s">
+        <span class="v-num">V</span>
+        <span class="v-name" data-editable="v5-name">IP Services &amp; Specialized Access</span>
+        <span class="v-desc" data-editable="v5-desc">Advanced materials, biotech force multiplication, sovereign-grade cybersecurity &amp; strategic commodity intelligence</span>
+        <span class="v-tag" data-editable="v5-tag">Intelligence</span>
+      </div>
+    </div>
+  </section>
 
-</style></head><body><nav><div class="nav-logo">Proteus Intel</div><ul class="nav-links"><li><a href="#verticals">Verticals</a></li><li><a href="#clients">Who We Serve</a></li><li><a href="#standard">The Standard</a></li></ul><a href="#standard" class="nav-cta">Request Access</a></nav><section class="hero"><div class="hero-bg"></div><div class="hero-grid-lines"></div><div class="hero-label">Sovereign Infrastructure & Defense Enablement</div><h1 class="hero-headline fade-in">Trusted access<br>at the <em>intersection</em><br>of sovereign worlds. </h1><p class="hero-sub fade-in" style="transition-delay:0.15s">Capital. Capability. Allied-nation defense demand.<br>We are the connective architecture between all three. </p><div class="hero-actions fade-in" style="transition-delay:0.3s"><a href="#standard" class="btn-primary">Request Access</a><a href="#verticals" class="btn-ghost">Explore Our Platform &rarr;
-</a></div><div class="hero-scroll">Scroll</div></section><div class="thesis-strip"><span class="thesis-label">Operating Thesis</span><div class="thesis-marquee"><div class="thesis-marquee-inner"><span class="highlight">Sovereign Capital Architecture</span><span>&#9670;
-</span><span>Defense Technology Acceleration</span><span>&#9670;
-</span><span class="highlight">Blockchain Sovereign Infrastructure</span><span>&#9670;
-</span><span>Energy Sovereignty</span><span>&#9670;
-</span><span class="highlight">IP Commercialization & Allied-Nation Licensing</span><span>&#9670;
-</span><span>GCC & European Sovereign Capital</span><span>&#9670;
-</span><span class="highlight">DOD Procurement Navigation</span><span>&#9670;
-</span><span>Autonomous Systems</span><span>&#9670;
-</span><span class="highlight">Sovereign Capital Architecture</span><span>&#9670;
-</span><span>Defense Technology Acceleration</span><span>&#9670;
-</span><span class="highlight">Blockchain Sovereign Infrastructure</span><span>&#9670;
-</span><span>Energy Sovereignty</span><span>&#9670;
-</span><span class="highlight">IP Commercialization & Allied-Nation Licensing</span><span>&#9670;
-</span><span>GCC & European Sovereign Capital</span><span>&#9670;
-</span></div></div></div><section class="problem fade-in"><div class="section-label">The Structural Gap</div><div class="problem-layout"><blockquote class="problem-quote">"The technologies determining the next generation of national security are almost entirely emerging from the private sector — and no existing institution is equipped to connect them to sovereign capital and defense demand."
-</blockquote><div class="problem-body"><p><strong>Traditional defense contractors</strong>are too slow and too publicly visible to operate at the intersection of sovereign capital and emerging technology.</p><p><strong>Generalist venture capital</strong>lacks the clearance relationships,
-geopolitical fluency,
-and procurement understanding to be useful in this space.</p><p><strong>Investment banks</strong>lack the technical depth and founder-level relationships with the companies building actual capabilities.</p><p>Proteus Intel was built to <strong>occupy and close this gap.</strong></p></div></div></section><section class="pillars"><div class="section-label">What We Are</div><div class="pillars-grid"><div class="pillar fade-in"><span class="pillar-number">01 / Capital</span><div class="pillar-title">Sovereign &<br>Institutional</div><div class="pillar-subtitle">Family Offices · SWFs · GCC Ministries</div><p class="pillar-body">Curated access to defense-adjacent deal flow with the geopolitical intelligence to understand what you are actually investing in — without direct exposure to U.S. government contracting channels.</p></div><div class="pillar fade-in" style="transition-delay:0.1s"><span class="pillar-number">02 / Capability</span><div class="pillar-title">Defense-Adjacent<br>Technology</div><div class="pillar-subtitle">Founders · Operators · Emerging Tech</div><p class="pillar-body">Early-stage and growth-stage companies building autonomous systems,
-sovereign data infrastructure,
-quantum-resilient cybersecurity,
-and advanced materials — connected to the channels that generalist venture cannot reach.</p></div><div class="pillar fade-in" style="transition-delay:0.2s"><span class="pillar-number">03 / Defense</span><div class="pillar-title">Allied-Nation<br>Demand</div><div class="pillar-subtitle">Governments · Ministries · Sovereign Structures</div><p class="pillar-body">A trusted,
-sovereign-aligned intermediary capable of navigating allied-nation defense relationships — not itself a government contractor,
-and structured for the sovereignty and confidentiality requirements of all parties.</p></div></div></section><section class="verticals" id="verticals"><div class="verticals-header"><h2 class="verticals-headline fade-in">Five verticals.<br><em>One platform.</em><br>No equivalent. </h2></div><div class="verticals-list"><div class="vertical-item fade-in"><span class="v-num">I</span><span class="v-name">Sovereign Capital Architecture</span><span class="v-desc">Retainer-based advisory for SWFs,
-family offices & GCC ministry-level investment vehicles seeking vetted defense-tech deal flow</span><span class="v-tag">Capital</span></div><div class="vertical-item fade-in" style="transition-delay:0.05s"><span class="v-num">II</span><span class="v-name">Defense Tech Acceleration & IP</span><span class="v-desc">Early identification,
-IP structuring,
-DOD procurement navigation & allied-nation licensing for defense-adjacent founders</span><span class="v-tag">Capability</span></div><div class="vertical-item fade-in" style="transition-delay:0.1s"><span class="v-num">III</span><span class="v-name">Sovereign Data & Web3 Infrastructure</span><span class="v-desc">Dual-ledger blockchain architecture for sovereign transactions,
-RWA tokenization of defense assets & off-grid mesh networks</span><span class="v-tag">Infrastructure</span></div><div class="vertical-item fade-in" style="transition-delay:0.15s"><span class="v-num">IV</span><span class="v-name">Energy Sovereignty</span><span class="v-desc">Containerized nuclear deployment,
-resilient microgrid infrastructure & allied-nation energy independence programs</span><span class="v-tag">Defense</span></div><div class="vertical-item fade-in" style="transition-delay:0.2s"><span class="v-num">V</span><span class="v-name">IP Services & Specialized Access</span><span class="v-desc">Advanced materials,
-biotech force multiplication,
-sovereign-grade cybersecurity & strategic commodity intelligence</span><span class="v-tag">Intelligence</span></div></div></section><section class="clients" id="clients"><div class="section-label">Who We Serve</div><div class="clients-intro"><h2 class="clients-headline fade-in">In a world where<br>nobody knows<br><em>who to trust&mdash;
-</em></h2><p class="clients-body fade-in" style="transition-delay:0.1s">Proteus Intel's value is entirely dependent on the quality of the people in our network. We do not take every client. We do not pursue every deal. We do not make every introduction. Trust is not infinitely scalable — and protecting it is our primary operating discipline.
- </p></div><div class="clients-grid"><div class="client-card fade-in"><span class="client-card-icon">GCC Ministry Officials</span><div class="client-card-title">Sovereign Governments</div><p class="client-card-body">Access to U.S.-standard defense technology and intelligence through a sovereign-aligned intermediary — without navigating U.S. government contracting channels directly.</p></div><div class="client-card fade-in" style="transition-delay:0.05s"><span class="client-card-icon">Family Offices & SWFs</span><div class="client-card-title">Institutional Capital</div><p class="client-card-body">Curated,
-vetted deal flow in defense-adjacent technology — with the geopolitical context to understand what you are actually buying exposure to.</p></div><div class="client-card fade-in" style="transition-delay:0.1s"><span class="client-card-icon">Defense-Adjacent Founders</span><div class="client-card-title">Technology Builders</div><p class="client-card-body">Procurement pathway navigation,
-IP structuring,
-and introductions to sovereign capital — from the only platform operating simultaneously in domestic DOD channels and international sovereign markets.</p></div><div class="client-card fade-in" style="transition-delay:0.15s"><span class="client-card-icon">Allied-Nation Governments</span><div class="client-card-title">Partner Nations</div><p class="client-card-body">Rapid deployment of capital,
-technology,
-and sovereign data infrastructure through a single trusted relationship — for nations watching their energy,
-cyber,
-and supply chain vulnerabilities accelerate.</p></div></div></section><section class="standard" id="standard"><div class="standard-inner"><div class="section-label" style="justify-content:center">The Proteus Standard</div><h2 class="standard-headline fade-in">We only bring people into the room who make the room <em>more valuable</em>for everyone already in it. </h2><div class="standard-rule"></div><p class="standard-body fade-in" style="transition-delay:0.1s">Named for the ancient sea god who holds all knowledge — but cannot be found by those who do not deserve to find him. When Proteus Intel makes an introduction,
-both sides know the other has been vetted by people who have everything to lose if the vetting is wrong. </p><a href="#" class="standard-cta fade-in" style="transition-delay:0.2s">Request a Consultation</a></div></section><footer><div class="footer-logo">Proteus Intel</div><ul class="footer-links"><li><a href="#">Verticals</a></li><li><a href="#">Who We Serve</a></li><li><a href="#">The Standard</a></li><li><a href="#">Contact</a></li></ul><div class="footer-copy">&copy;
+  <section class="clients" id="clients">
+    <div class="section-label" data-editable="clients-label">Who We Serve</div>
+    <div class="clients-intro">
+      <h2 class="clients-headline fade-in" data-editable="clients-headline">In a world where<br>nobody knows<br><em>who to trust&mdash;</em></h2>
+      <p class="clients-body fade-in" style="transition-delay:0.1s" data-editable="clients-body">Proteus Intel's value is entirely dependent on the quality of the people in our network. We do not take every client. We do not pursue every deal. We do not make every introduction. Trust is not infinitely scalable — and protecting it is our primary operating discipline.</p>
+    </div>
+    <div class="clients-grid">
+      <div class="client-card fade-in">
+        <span class="client-card-icon" data-editable="cc1-icon">GCC Ministry Officials</span>
+        <div class="client-card-title" data-editable="cc1-title">Sovereign Governments</div>
+        <p class="client-card-body" data-editable="cc1-body">Access to U.S.-standard defense technology and intelligence through a sovereign-aligned intermediary — without navigating U.S. government contracting channels directly.</p>
+      </div>
+      <div class="client-card fade-in" style="transition-delay:0.05s">
+        <span class="client-card-icon" data-editable="cc2-icon">Family Offices &amp; SWFs</span>
+        <div class="client-card-title" data-editable="cc2-title">Institutional Capital</div>
+        <p class="client-card-body" data-editable="cc2-body">Curated, vetted deal flow in defense-adjacent technology — with the geopolitical context to understand what you are actually buying exposure to.</p>
+      </div>
+      <div class="client-card fade-in" style="transition-delay:0.1s">
+        <span class="client-card-icon" data-editable="cc3-icon">Defense-Adjacent Founders</span>
+        <div class="client-card-title" data-editable="cc3-title">Technology Builders</div>
+        <p class="client-card-body" data-editable="cc3-body">Procurement pathway navigation, IP structuring, and introductions to sovereign capital — from the only platform operating simultaneously in domestic DOD channels and international sovereign markets.</p>
+      </div>
+      <div class="client-card fade-in" style="transition-delay:0.15s">
+        <span class="client-card-icon" data-editable="cc4-icon">Allied-Nation Governments</span>
+        <div class="client-card-title" data-editable="cc4-title">Partner Nations</div>
+        <p class="client-card-body" data-editable="cc4-body">Rapid deployment of capital, technology, and sovereign data infrastructure through a single trusted relationship — for nations watching their energy, cyber, and supply chain vulnerabilities accelerate.</p>
+      </div>
+    </div>
+  </section>
 
-2025 Proteus Intelligence. All rights reserved.</div></footer><script>const observer=new IntersectionObserver((entries)=> {
-        entries.forEach(e=> {
-                if (e.isIntersecting) e.target.classList.add('visible');
-            });
-    }
+  <section class="standard" id="standard">
+    <div class="standard-inner">
+      <div class="section-label" style="justify-content:center" data-editable="standard-label">The Proteus Standard</div>
+      <h2 class="standard-headline fade-in" data-editable="standard-headline">We only bring people into the room who make the room <em>more valuable</em> for everyone already in it.</h2>
+      <div class="standard-rule"></div>
+      <p class="standard-body fade-in" style="transition-delay:0.1s" data-editable="standard-body">Named for the ancient sea god who holds all knowledge — but cannot be found by those who do not deserve to find him. When Proteus Intel makes an introduction, both sides know the other has been vetted by people who have everything to lose if the vetting is wrong.</p>
+      <a href="#" class="standard-cta fade-in" style="transition-delay:0.2s">Request a Consultation</a>
+    </div>
+  </section>
 
-    , {
-    threshold: 0.1, rootMargin: '0px 0px -40px 0px'
-});
+  <footer>
+    <div class="footer-logo" data-editable="footer-logo">Proteus Intel</div>
+    <ul class="footer-links">
+      <li><a href="#">Verticals</a></li>
+      <li><a href="#">Who We Serve</a></li>
+      <li><a href="#">The Standard</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2025 Proteus Intelligence. All rights reserved.</div>
+  </footer>
 
-document.querySelectorAll('.fade-in').forEach(el=> observer.observe(el));
-</script></body></html>
+  <!-- Admin Login Overlay -->
+  <div class="admin-overlay" id="adminOverlay">
+    <div class="admin-modal">
+      <h3>Admin Access</h3>
+      <div class="error-msg" id="loginError">Invalid password</div>
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
+      <button id="loginBtn">Enter Edit Mode</button>
+    </div>
+  </div>
+
+  <!-- Edit Toolbar -->
+  <div class="edit-toolbar" id="editToolbar">
+    <span class="edit-toolbar-label">Edit Mode</span>
+    <span class="save-status" id="saveStatus"></span>
+    <div class="edit-toolbar-actions">
+      <button class="edit-btn-cancel" id="cancelBtn">Exit</button>
+      <button class="edit-btn-save" id="saveBtn">Save Changes</button>
+    </div>
+  </div>
+
+  <script>
+    /* Fade-in observer */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* Inline Editing System */
+    (() => {
+      const overlay = document.getElementById('adminOverlay');
+      const toolbar = document.getElementById('editToolbar');
+      const pwInput = document.getElementById('adminPassword');
+      const loginBtn = document.getElementById('loginBtn');
+      const loginError = document.getElementById('loginError');
+      const saveBtn = document.getElementById('saveBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const saveStatus = document.getElementById('saveStatus');
+      let token = sessionStorage.getItem('adminToken');
+
+      /* Trigger login: Ctrl+Shift+E or /#admin */
+      function checkHash() {
+        if (location.hash === '#admin') {
+          if (token) { enterEditMode(); } else { overlay.classList.add('active'); pwInput.focus(); }
+        }
+      }
+      window.addEventListener('hashchange', checkHash);
+      checkHash();
+      document.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'E') {
+          e.preventDefault();
+          if (token) { enterEditMode(); } else { overlay.classList.add('active'); pwInput.focus(); }
+        }
+      });
+
+      /* Login */
+      async function doLogin() {
+        loginError.style.display = 'none';
+        loginBtn.textContent = 'Authenticating...';
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pwInput.value }),
+          });
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          token = data.token;
+          sessionStorage.setItem('adminToken', token);
+          overlay.classList.remove('active');
+          pwInput.value = '';
+          enterEditMode();
+        } catch {
+          loginError.style.display = 'block';
+          loginBtn.textContent = 'Enter Edit Mode';
+        }
+      }
+      loginBtn.addEventListener('click', doLogin);
+      pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) { overlay.classList.remove('active'); history.replaceState(null, '', location.pathname); }
+      });
+
+      /* Edit mode */
+      function enterEditMode() {
+        document.body.classList.add('edit-mode');
+        toolbar.classList.add('active');
+        document.querySelectorAll('[data-editable]').forEach(el => el.setAttribute('contenteditable', 'true'));
+      }
+      cancelBtn.addEventListener('click', () => {
+        document.body.classList.remove('edit-mode');
+        toolbar.classList.remove('active');
+        document.querySelectorAll('[data-editable]').forEach(el => el.removeAttribute('contenteditable'));
+        history.replaceState(null, '', location.pathname);
+      });
+
+      /* Save */
+      saveBtn.addEventListener('click', async () => {
+        const content = {};
+        document.querySelectorAll('[data-editable]').forEach(el => { content[el.dataset.editable] = el.innerHTML; });
+        saveStatus.textContent = 'Saving...';
+        saveBtn.disabled = true;
+        try {
+          const res = await fetch('/api/content', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify(content),
+          });
+          if (!res.ok) throw new Error();
+          saveStatus.textContent = 'Saved';
+          setTimeout(() => saveStatus.textContent = '', 3000);
+        } catch {
+          saveStatus.textContent = 'Save failed';
+          setTimeout(() => saveStatus.textContent = '', 3000);
+        }
+        saveBtn.disabled = false;
+      });
+
+      /* Load saved content */
+      (async () => {
+        try {
+          const res = await fetch('/api/content');
+          if (!res.ok) return;
+          const content = await res.json();
+          if (!content || Object.keys(content).length === 0) return;
+          Object.entries(content).forEach(([key, html]) => {
+            const el = document.querySelector('[data-editable="' + key + '"]');
+            if (el) el.innerHTML = html;
+          });
+        } catch { /* use default content */ }
+      })();
+    })();
+  </script>
+</body>
+</html>
