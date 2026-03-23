@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# Node
+node_modules/
+dist/
+build/
+
+# Vercel
+.vercel/
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Misc
+*.log
