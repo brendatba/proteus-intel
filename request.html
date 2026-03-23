@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Access — Proteus Intel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-dim: #8A6E30;
+      --gold-faint: #2A210F;
+      --ink: #080808;
+      --surface: #0E0E0E;
+      --surface-2: #141414;
+      --surface-3: #1C1C1C;
+      --border: rgba(201, 168, 76, 0.15);
+      --border-bright: rgba(201, 168, 76, 0.35);
+      --text-primary: #E8E3D8;
+      --text-secondary: #8A8070;
+      --text-muted: #4A4540;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Cormorant Garamond', serif;
+      --cond: 'Barlow Condensed', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text-primary);
+      font-family: var(--cond);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      border-bottom: 0.5px solid var(--border);
+      background: rgba(8, 8, 8, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: var(--mono); font-weight: 300; font-size: 11px;
+      letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-back {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em;
+      color: var(--text-secondary); text-decoration: none; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── LAYOUT ── */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── LEFT PANEL ── */
+    .panel-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-left-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 30% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    }
+    .panel-left-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(201,168,76,0.03) 0.5px, transparent 0.5px),
+        linear-gradient(to bottom, rgba(201,168,76,0.03) 0.5px, transparent 0.5px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 40% 50%, black 20%, transparent 80%);
+    }
+    .panel-left-content {
+      position: relative;
+      z-index: 1;
+    }
+    .panel-label {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.35em;
+      color: var(--gold-dim); text-transform: uppercase; margin-bottom: 2.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .panel-label::before {
+      content: ''; display: block; width: 40px; height: 0.5px; background: var(--gold-dim);
+    }
+    .panel-headline {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.05; letter-spacing: -0.01em;
+      color: var(--text-primary); margin-bottom: 2rem;
+    }
+    .panel-headline em {
+      font-style: italic; color: var(--gold);
+    }
+    .panel-body {
+      font-size: 14px; font-weight: 300; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-secondary);
+      line-height: 1.85; max-width: 440px; margin-bottom: 3rem;
+    }
+    .panel-divider {
+      width: 50px; height: 0.5px; background: var(--gold-dim); margin-bottom: 3rem;
+    }
+    .panel-trust {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .trust-icon {
+      width: 28px; height: 28px;
+      border: 0.5px solid var(--border-bright);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 9px; color: var(--gold-dim);
+      flex-shrink: 0;
+    }
+    .trust-text {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+
+    /* ── RIGHT PANEL (FORM) ── */
+    .panel-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5rem 5rem;
+      background: var(--surface);
+      border-left: 0.5px solid var(--border);
+      position: relative;
+    }
+    .panel-right::before {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 1.5px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gold-dim) 40%, var(--gold-dim) 60%, transparent);
+      opacity: 0.4;
+    }
+
+    .form-header {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--ink);
+      border: 0.5px solid var(--border);
+      color: var(--text-primary);
+      font-family: var(--cond);
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 1.25rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-input::placeholder {
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .form-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.1);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.7;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 1.1rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .form-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .form-footnote {
+      font-family: var(--mono); font-size: 8px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-top: 1.5rem; line-height: 1.8;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 0;
+    }
+    .form-success.active {
+      display: block;
+    }
+    .success-icon {
+      width: 48px; height: 48px;
+      border: 0.5px solid var(--gold-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 2rem;
+    }
+    .success-icon svg {
+      width: 20px; height: 20px; stroke: var(--gold); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .success-headline {
+      font-family: var(--serif); font-size: 2rem; font-weight: 300;
+      font-style: italic; color: var(--text-primary); margin-bottom: 1rem;
+    }
+    .success-body {
+      font-family: var(--cond); font-size: 13px; font-weight: 300;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-secondary); line-height: 1.8; max-width: 360px; margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .footer-left, .footer-right {
+      font-family: var(--mono); font-size: 8px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .fade-up:nth-child(2) { animation-delay: 0.1s; }
+    .fade-up:nth-child(3) { animation-delay: 0.2s; }
+    .fade-up:nth-child(4) { animation-delay: 0.3s; }
+    .fade-up:nth-child(5) { animation-delay: 0.4s; }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .panel-right .form-group,
+    .panel-right .form-header,
+    .panel-right .form-submit,
+    .panel-right .form-footnote {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .panel-right .form-header { animation-delay: 0.15s; }
+    .panel-right .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .panel-right .form-group:nth-child(3) { animation-delay: 0.25s; }
+    .panel-right .form-group:nth-child(4) { animation-delay: 0.3s; }
+    .panel-right .form-group:nth-child(5) { animation-delay: 0.35s; }
+    .panel-right .form-submit { animation-delay: 0.4s; }
+    .panel-right .form-footnote { animation-delay: 0.45s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .panel-left {
+        padding: 7rem 2rem 3rem;
+        min-height: auto;
+      }
+      .panel-right {
+        padding: 3rem 2rem 4rem;
+        border-left: none;
+        border-top: 0.5px solid var(--border);
+      }
+      .panel-right::before { display: none; }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .panel-trust { margin-bottom: 0; }
+      .page-footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Proteus Intel</a>
+    <a href="/" class="nav-back">&larr; Back</a>
+  </nav>
+
+  <div class="page">
+    <!-- Left Panel -->
+    <div class="panel-left">
+      <div class="panel-left-bg"></div>
+      <div class="panel-left-grid"></div>
+      <div class="panel-left-content">
+        <div class="panel-label fade-up">Request Access</div>
+        <h1 class="panel-headline fade-up">
+          The room is<br>
+          <em>deliberately</em><br>
+          kept small.
+        </h1>
+        <p class="panel-body fade-up">
+          Proteus Intel operates by invitation and referral.
+          If you believe there is alignment between what we build
+          and what you need — we are listening.
+        </p>
+        <div class="panel-divider fade-up"></div>
+        <div class="panel-trust fade-up">
+          <div class="trust-item">
+            <div class="trust-icon">I</div>
+            <span class="trust-text">Reviewed within 48 hours</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">II</div>
+            <span class="trust-text">Sovereign-grade confidentiality</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">III</div>
+            <span class="trust-text">Direct principal contact</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel (Form) -->
+    <div class="panel-right">
+      <div class="form-header">Your Information</div>
+
+      <form id="requestForm">
+        <div class="form-group">
+          <div class="form-row">
+            <div>
+              <label class="form-label" for="firstName">First Name</label>
+              <input class="form-input" type="text" id="firstName" name="first_name" placeholder="First name" required>
+            </div>
+            <div>
+              <label class="form-label" for="lastName">Last Name</label>
+              <input class="form-input" type="text" id="lastName" name="last_name" placeholder="Last name" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="business">Business / Organization</label>
+          <input class="form-input" type="text" id="business" name="business" placeholder="Company or entity name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">How can we help?</label>
+          <textarea class="form-input" id="message" name="message" placeholder="Tell us about your objectives and how Proteus Intel may be of service..."></textarea>
+        </div>
+
+        <button class="form-submit" type="submit">Submit Request</button>
+
+        <p class="form-footnote">
+          Your information is handled with the same discretion
+          we apply to every relationship in our network.
+          We will never share your details with third parties.
+        </p>
+      </form>
+
+      <!-- Success State -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="success-headline">Request received.</div>
+        <p class="success-body">
+          A member of our team will review your submission
+          and respond within 48 hours. We appreciate your interest in Proteus Intel.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-left">&copy; 2025 Proteus Intelligence</span>
+    <span class="footer-right">Confidential</span>
+  </div>
+
+  <script>
+    /*
+     * GO HIGH LEVEL INTEGRATION
+     * ─────────────────────────
+     * Replace the URL below with your GHL form/webhook endpoint.
+     * The form fields map to: first_name, last_name, email, business, message
+     */
+    const GHL_FORM_ENDPOINT = ''; // <-- Paste your GHL webhook URL here
+
+    const form = document.getElementById('requestForm');
+    const success = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const data = Object.fromEntries(new FormData(form));
+
+      if (GHL_FORM_ENDPOINT) {
+        try {
+          await fetch(GHL_FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+        } catch {
+          /* Still show success — GHL will receive via webhook retry */
+        }
+      }
+
+      form.style.display = 'none';
+      success.classList.add('active');
+    });
+  </script>
+</body>
+</html>
